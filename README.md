@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     subgraph Cloud_AI_Layer [CLOUD / AI LAYER]
         Hub[Cloud IoT Hub <br> AWS/Azure/GCP] --> Ingest[Data Ingestion]
