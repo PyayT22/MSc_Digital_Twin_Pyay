@@ -1,26 +1,31 @@
 ```mermaid
+```mermaid
 graph TD
     subgraph Cloud_AI_Layer [CLOUD / AI LAYER]
-        Hub[Cloud IoT Hub <br> AWS/Azure/GCP] --> Ingest[Data Ingestion]
+        Hub[MQTT Broker / Cloud Platform] --> Ingest[Data Ingestion]
         Ingest --> DB[(Time-Series Database)]
-        DB --> AI[AI/LSTM Model]
+        DB --> Dashboard[Dashboard Visualisation]
+        DB --> AI[AI / LSTM Energy Prediction Model]
+        AI --> Decision[Energy Monitoring and Decision Support]
     end
 
     subgraph Microcontroller_Gateway [MICROCONTROLLER / GATEWAY]
-        ESP[ESP32 DevKit v1]
+        ESP[DFRobot FireBeetle ESP32]
     end
 
     subgraph Sensor_Layer [SENSOR LAYER]
-        NEO[NEO-6M <br> GPS/Location]
-        MH[MH-Z19B <br> CO2/Occupancy]
-        BH[BH1750 <br> Light]
-        DHT[DHT22 <br> Temp/Humidity]
+        SCD[Pimoroni SCD41 <br> CO₂ / Temperature / Humidity]
+        DHT[DHT11 <br> Supplementary Temperature / Humidity]
+        LDR[LDR Photoresistor <br> Relative Light Level]
+        NEO[NEO-6M GPS <br> Location / GPS Time]
     end
 
-    %% Connections
-    ESP -- Wi-Fi 802.11 b/g/n <br> MQTT / HTTPS --> Hub
-    
-    NEO -- HW UART 1 --> ESP
-    MH -- HW UART 2 --> ESP
-    BH -- I2C --> ESP
-    DHT -- GPIO --> ESP
+    %% Sensor connections
+    SCD -- I²C --> ESP
+    DHT -- Digital GPIO --> ESP
+    LDR -- Analogue ADC --> ESP
+    NEO -- UART --> ESP
+
+    %% Data transmission
+    ESP -- Wi-Fi <br> MQTT / HTTPS --> Hub
+```
