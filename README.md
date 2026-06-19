@@ -1,5 +1,4 @@
 ```mermaid
-```mermaid
 graph TD
     subgraph Cloud_AI_Layer [CLOUD / AI LAYER]
         Hub[MQTT Broker / Cloud Platform] --> Ingest[Data Ingestion]
