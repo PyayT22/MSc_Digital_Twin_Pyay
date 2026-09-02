@@ -1,3 +1,6 @@
+# Implemented IoT Data Pipeline
+
+```mermaid
 flowchart TB
 
     subgraph S["SENSOR LAYER"]
